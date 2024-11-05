@@ -1,10 +1,20 @@
 from django.shortcuts import render
 
 from django.views import View
+from .models import CategoryModel, ProductsModel
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'home.html')
+        
+        category_list = CategoryModel.objects.all()
+        # fast_food_list = ProductsModel.manager.all().filter(category__name='Fast-food').order_by('-publish_time')
+        
+        
+        context = {
+            'category_list' : category_list,
+        }
+    
+        return render(request, 'home.html', context)
     
     
 class MenuView(View):
